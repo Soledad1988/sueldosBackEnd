@@ -2,6 +2,8 @@ package com.sueldos.liquidacion.model;
 
 import java.util.Date;
 
+import com.sueldos.liquidacion.controller.DatosColaborador;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,6 +41,16 @@ public class Colaborador {
 		this.edad = edad;
 		this.direccion = direccion;
 		this.convenio = convenio;
+	}
+
+	public Colaborador(DatosColaborador datosColaborador) {
+		this.nombre = datosColaborador.nombre();
+		this.apellido = datosColaborador.apellido();
+		this.dni = datosColaborador.dni();
+		this.nacimiento = datosColaborador.nacimiento();
+		this.edad = datosColaborador.edad();
+		this.direccion = datosColaborador.direccion();
+		this.convenio = datosColaborador.convenio();
 	}
 
 	public Integer getId() {
