@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sueldos.liquidacion.model.Colaborador;
-import com.sueldos.liquidacion.repository.ColaboradorRepository;
 import com.sueldos.liquidacion.service.ColaboradorService;
 
 @RestController
