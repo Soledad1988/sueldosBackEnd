@@ -8,4 +8,7 @@ public interface IColaboradorService {
 
 	public void crear(Colaborador colaborador);
 	public List<Colaborador>listar();
+	public void borrar(Integer id);
+    public Colaborador buscar(Integer id);
+    public void actualizar(Colaborador colaborador);
 }
