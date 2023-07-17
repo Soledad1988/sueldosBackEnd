@@ -84,7 +84,5 @@ public class Colaborador {
 	public String getConvenio() {
 		return convenio;
 	}
-
-
 	
 }

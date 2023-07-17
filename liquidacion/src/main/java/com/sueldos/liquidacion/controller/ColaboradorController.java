@@ -37,15 +37,14 @@ public class ColaboradorController {
        return colaboradorService.buscar(id);
     }
    
-	 @DeleteMapping("/{id}")
-	 void borrar(@PathVariable Integer id){
-		 colaboradorService.borrar(id);
+	@DeleteMapping("/{id}")
+	void borrar(@PathVariable Integer id){
+		colaboradorService.borrar(id);
+	}
+  
+	@PutMapping
+	public void actualizar(@RequestBody Colaborador colaborador){
+		colaboradorService.actualizar(colaborador);
 	 }
-  
-  
-	  @PutMapping
-	  public void actualizar(@RequestBody Colaborador colaborador){
-		  colaboradorService.actualizar(colaborador);
-	  }
 
 }
