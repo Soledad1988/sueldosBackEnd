@@ -24,4 +24,19 @@ public class ConvenioService implements IConvenioService{
 		return convenioRepository.findAll();
 	}
 
+	@Override
+	public void borrar(Integer id) {
+		convenioRepository.deleteById(id);
+	}
+
+	@Override
+	public Convenio buscar(Integer id) {
+		return convenioRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public void actualizar(Convenio convenio) {
+		convenioRepository.save(convenio);	
+	}
+
 }

@@ -15,20 +15,17 @@ public class Convenio {
 	private Integer idConvenio;
 	private String nombreConvenio;
 	private String categoria;
-	private Double basico;
 	
 	
 	public Convenio() {
 		
 	}
 
-
-	public Convenio(Integer idConvenio, String nombreConvenio, String categoria, Double basico) {
+	public Convenio(Integer idConvenio, String nombreConvenio, String categoria) {
 		super();
 		this.idConvenio = idConvenio;
 		this.nombreConvenio = nombreConvenio;
 		this.categoria = categoria;
-		this.basico = basico;
 		}
 
 
@@ -46,9 +43,6 @@ public class Convenio {
 		return categoria;
 	}
 	
-	public Double getBasico() {
-		return basico;
-	}
 
 	
 	
