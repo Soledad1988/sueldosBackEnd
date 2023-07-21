@@ -9,7 +9,7 @@ public interface IConvenioService {
 
 	public void crear(Convenio convenio);
 	public List<Convenio>listar();
-	public void borrar(Integer id);
-    public Convenio buscar(Integer id);
+	public void borrar(Integer idConvenio);
+    public Convenio buscar(Integer idConvenio);
     public void actualizar(Convenio convenio);
 }

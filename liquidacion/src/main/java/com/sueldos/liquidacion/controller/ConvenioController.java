@@ -33,14 +33,14 @@ public class ConvenioController {
 		return convenioService.listar();
 	}
 	
-	@GetMapping("/{id}")
-    public Convenio get(@PathVariable("id") Integer id){
-       return convenioService.buscar(id);
+	@GetMapping("/{idConvenio}")
+    public Convenio get(@PathVariable("idConvenio") Integer idConvenio){
+       return convenioService.buscar(idConvenio);
     }
    
-	@DeleteMapping("/{id}")
-	void borrar(@PathVariable Integer id){
-		convenioService.borrar(id);
+	@DeleteMapping("/{idConvenio}")
+	void borrar(@PathVariable Integer idConvenio){
+		convenioService.borrar(idConvenio);
 	}
   
 	@PutMapping
