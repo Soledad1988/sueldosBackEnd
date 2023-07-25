@@ -2,12 +2,16 @@ package com.sueldos.liquidacion.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sueldos.liquidacion.controller.DatosColaborador;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity(name="Colaborador")
@@ -23,15 +27,20 @@ public class Colaborador {
 	private Date nacimiento;
 	private Integer edad;
 	private String direccion;
-	private String convenio;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="Id_Categoria")
+	@JsonIgnore
+	private Categoria categoria;
 	
 	
 	public Colaborador() {
 	
 	}
 
+
 	public Colaborador(Integer id, String nombre, String apellido, String dni, Date nacimiento, Integer edad,
-			String direccion, String convenio) {
+			String direccion, Categoria categoria) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -40,51 +49,90 @@ public class Colaborador {
 		this.nacimiento = nacimiento;
 		this.edad = edad;
 		this.direccion = direccion;
-		this.convenio = convenio;
+		this.categoria = categoria;
 	}
 
-	public Colaborador(DatosColaborador datosColaborador) {
-		this.nombre = datosColaborador.nombre();
-		this.apellido = datosColaborador.apellido();
-		this.dni = datosColaborador.dni();
-		this.nacimiento = datosColaborador.nacimiento();
-		this.edad = datosColaborador.edad();
-		this.direccion = datosColaborador.direccion();
-		this.convenio = datosColaborador.convenio();
-	}
 
 	public Integer getId() {
 		return id;
 	}
 
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
 	public String getNombre() {
 		return nombre;
 	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 
 	public String getApellido() {
 		return apellido;
 	}
 
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+
 	public String getDni() {
 		return dni;
 	}
+
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
 
 	public Date getNacimiento() {
 		return nacimiento;
 	}
 
+
+	public void setNacimiento(Date nacimiento) {
+		this.nacimiento = nacimiento;
+	}
+
+
 	public Integer getEdad() {
 		return edad;
 	}
+
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
+
 
 	public String getDireccion() {
 		return direccion;
 	}
 
-	public String getConvenio() {
-		return convenio;
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	
 	
 	
 }
