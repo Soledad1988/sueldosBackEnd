@@ -21,7 +21,7 @@ public class CategoriaService implements ICategoriaService{
 	}
 
 	@Override
-	public List<Categoria> listar() {
+	public List<Categoria> listarConvenio() {
 		return categoriaRepository.findAll();
 	}
 
@@ -41,5 +41,7 @@ public class CategoriaService implements ICategoriaService{
 		categoriaRepository.save(categoria);
 		
 	}
+
+
 
 }

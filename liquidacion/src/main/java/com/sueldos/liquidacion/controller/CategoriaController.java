@@ -29,7 +29,7 @@ public class CategoriaController {
 	
 	@GetMapping
 	public List<Categoria>listar(){
-		return categoriaService.listar();
+		return categoriaService.listarConvenio();
 	}
 	
 	@GetMapping("/{idCatgeoria}")
