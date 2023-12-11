@@ -10,18 +10,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity(name="Convenio")
 @Table(name="convenios")
 public class Convenio {
-
-	/*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idConvenio;
-	private String nombreConvenio;
-	private String categoria;*/
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +25,14 @@ public class Convenio {
 	private String numero;
 	private String nombre;
 	
-	//@OneToMany(mappedBy = "convenio")
-	//List<Categoria> categorias;
-	
 	@OneToMany(mappedBy = "convenio", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private List<Categoria> categorias = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "convenio", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private List<Colaborador> colaboradores = new ArrayList<>();
+	
 	
 	
 	public Convenio() {
@@ -42,13 +40,17 @@ public class Convenio {
 	}
 
 
-	public Convenio(Integer idConvenio, String numero, String nombre, List<Categoria> categorias) {
+
+	public Convenio(Integer idConvenio, String numero, String nombre, List<Categoria> categorias,
+			List<Colaborador> colaboradores) {
 		super();
 		this.idConvenio = idConvenio;
 		this.numero = numero;
 		this.nombre = nombre;
 		this.categorias = categorias;
+		this.colaboradores = colaboradores;
 	}
+
 
 
 	public Integer getIdConvenio() {
@@ -56,9 +58,11 @@ public class Convenio {
 	}
 
 
+
 	public void setIdConvenio(Integer idConvenio) {
 		this.idConvenio = idConvenio;
 	}
+
 
 
 	public String getNumero() {
@@ -66,9 +70,11 @@ public class Convenio {
 	}
 
 
+
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+
 
 
 	public String getNombre() {
@@ -76,9 +82,11 @@ public class Convenio {
 	}
 
 
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 
 
 	public List<Categoria> getCategorias() {
@@ -90,6 +98,15 @@ public class Convenio {
 		this.categorias = categorias;
 	}
 
+
+	public List<Colaborador> getColaboradores() {
+		return colaboradores;
+	}
+
+
+	public void setColaboradores(List<Colaborador> colaboradores) {
+		this.colaboradores = colaboradores;
+	}
 
 	
 	
