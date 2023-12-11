@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sueldos.liquidacion.model.Categoria;
-import com.sueldos.liquidacion.model.Convenio;
 import com.sueldos.liquidacion.repository.CategoriaRepository;
 
 @Service
