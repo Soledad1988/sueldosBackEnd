@@ -23,6 +23,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCategoria;
 	private String nombre;
+	private Double monto;
 	private String descripcion;
 	
 	@ManyToOne
@@ -39,11 +40,12 @@ public class Categoria {
 	}
 
 
-	public Categoria(Integer idCategoria, String nombre, String descripcion, Convenio convenio,
+	public Categoria(Integer idCategoria, String nombre, Double monto, String descripcion, Convenio convenio,
 			List<Colaborador> colaboradores) {
 		super();
 		this.idCategoria = idCategoria;
 		this.nombre = nombre;
+		this.monto = monto;
 		this.descripcion = descripcion;
 		this.convenio = convenio;
 		this.colaboradores = colaboradores;
@@ -67,6 +69,16 @@ public class Categoria {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+
+	public Double getMonto() {
+		return monto;
+	}
+
+
+	public void setMonto(Double monto) {
+		this.monto = monto;
 	}
 
 
@@ -98,8 +110,6 @@ public class Categoria {
 	public void setColaboradores(List<Colaborador> colaboradores) {
 		this.colaboradores = colaboradores;
 	}
-
-
 
 	
 }
