@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sueldos.liquidacion.model.Colaborador;
+import com.sueldos.liquidacion.model.Liquidacion;
+import com.sueldos.liquidacion.model.LiquidacionComercio;
 import com.sueldos.liquidacion.repository.ColaboradorRepository;
+import com.sueldos.liquidacion.repository.LiquidacionRepository;
 
 @Service
 public class ColaboradorService implements IColaboradorService{
@@ -38,5 +41,6 @@ public class ColaboradorService implements IColaboradorService{
 	public void actualizar(Colaborador colaborador) {
 		colaboradorRepository.save(colaborador);
 	}
+	
 
 }

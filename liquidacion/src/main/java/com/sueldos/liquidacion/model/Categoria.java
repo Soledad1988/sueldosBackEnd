@@ -23,7 +23,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCategoria;
 	private String nombre;
-	private Double monto;
+	private double sueldoBasico;
 	private String descripcion;
 	
 	@ManyToOne
@@ -40,12 +40,12 @@ public class Categoria {
 	}
 
 
-	public Categoria(Integer idCategoria, String nombre, Double monto, String descripcion, Convenio convenio,
+	public Categoria(Integer idCategoria, String nombre, double sueldoBasico, String descripcion, Convenio convenio,
 			List<Colaborador> colaboradores) {
 		super();
 		this.idCategoria = idCategoria;
 		this.nombre = nombre;
-		this.monto = monto;
+		this.sueldoBasico = sueldoBasico;
 		this.descripcion = descripcion;
 		this.convenio = convenio;
 		this.colaboradores = colaboradores;
@@ -72,13 +72,13 @@ public class Categoria {
 	}
 
 
-	public Double getMonto() {
-		return monto;
+	public double getSueldoBasico() {
+		return sueldoBasico;
 	}
 
 
-	public void setMonto(Double monto) {
-		this.monto = monto;
+	public void setSueldoBasico(double sueldoBasico) {
+		this.sueldoBasico = sueldoBasico;
 	}
 
 
@@ -111,5 +111,4 @@ public class Categoria {
 		this.colaboradores = colaboradores;
 	}
 
-	
 }

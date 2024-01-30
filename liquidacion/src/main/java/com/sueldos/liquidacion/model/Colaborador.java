@@ -39,16 +39,16 @@ public class Colaborador {
 	@JoinColumn(name = "id_catgoria", nullable = false)
 	private Categoria categoria;
 	
+	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Liquidacion> liquidaciones = new ArrayList<>();
 	
 	
 	public Colaborador() {
 	
 	}
 
-
-
 	public Colaborador(Integer id, String nombre, String apellido, String dni, Date nacimiento, Integer edad,
-			String direccion, Boolean activo, Convenio convenio, Categoria categoria) {
+			String direccion, Boolean activo, Convenio convenio, Categoria categoria, List<Liquidacion> liquidaciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -60,130 +60,108 @@ public class Colaborador {
 		this.activo = activo;
 		this.convenio = convenio;
 		this.categoria = categoria;
+		this.liquidaciones = liquidaciones;
 	}
 
-
-
-	public Integer getId() {
+	
+	 public Integer getId() {
 		return id;
 	}
-
-
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
-
 	public String getNombre() {
 		return nombre;
 	}
-
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
-
 	public String getApellido() {
 		return apellido;
 	}
-
-
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
 
-
-
 	public String getDni() {
 		return dni;
 	}
-
-
 
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
-
-
 	public Date getNacimiento() {
 		return nacimiento;
 	}
-
-
 
 	public void setNacimiento(Date nacimiento) {
 		this.nacimiento = nacimiento;
 	}
 
-
-
 	public Integer getEdad() {
 		return edad;
 	}
-
-
 
 	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
 
-
-
 	public String getDireccion() {
 		return direccion;
 	}
-
-
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 
-
-
 	public Boolean getActivo() {
 		return activo;
 	}
-
-
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
 
-
-
 	public Convenio getConvenio() {
 		return convenio;
 	}
-
-
 
 	public void setConvenio(Convenio convenio) {
 		this.convenio = convenio;
 	}
 
-
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
-
-
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
-	
+	public List<Liquidacion> getLiquidaciones() {
+		return liquidaciones;
+	}
 
-	
+	public void setLiquidaciones(List<Liquidacion> liquidaciones) {
+		this.liquidaciones = liquidaciones;
+	}
+
+
+	//---------------------------------
+	public void addLiquidacion(Liquidacion liquidacion) {
+	        liquidaciones.add(liquidacion);
+	        liquidacion.setColaborador(this);
+	    }
+
+	    public void removeLiquidacion(Liquidacion liquidacion) {
+	        liquidaciones.remove(liquidacion);
+	        liquidacion.setColaborador(null);
+	    }
 	
 }
