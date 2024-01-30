@@ -29,7 +29,8 @@ public class Colaborador {
 	private Date nacimiento;
 	private Integer edad;
 	private String direccion;
-	private Boolean activo = true;
+	private Date fecha_ingreso;
+	private boolean activo;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_convenio", nullable = false)
@@ -48,7 +49,7 @@ public class Colaborador {
 	}
 
 	public Colaborador(Integer id, String nombre, String apellido, String dni, Date nacimiento, Integer edad,
-			String direccion, Boolean activo, Convenio convenio, Categoria categoria, List<Liquidacion> liquidaciones) {
+			String direccion, Date fecha_ingreso, Boolean activo, Convenio convenio, Categoria categoria, List<Liquidacion> liquidaciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -57,14 +58,24 @@ public class Colaborador {
 		this.nacimiento = nacimiento;
 		this.edad = edad;
 		this.direccion = direccion;
+		this.fecha_ingreso = fecha_ingreso;
 		this.activo = activo;
 		this.convenio = convenio;
 		this.categoria = categoria;
 		this.liquidaciones = liquidaciones;
 	}
-
 	
-	 public Integer getId() {
+	
+
+	public Date getFecha_ingreso() {
+		return fecha_ingreso;
+	}
+
+	public void setFecha_ingreso(Date fecha_ingreso) {
+		this.fecha_ingreso = fecha_ingreso;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
