@@ -26,6 +26,7 @@ public class Colaborador {
 	private String nombre;
 	private String apellido;
 	private String dni;
+	private String cuit;
 	private Date nacimiento;
 	private Integer edad;
 	private String direccion;
@@ -40,6 +41,10 @@ public class Colaborador {
 	@JoinColumn(name = "id_catgoria", nullable = false)
 	private Categoria categoria;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_obra_social", nullable = false)
+	private ObraSocial obrasocial;
+	
 	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Liquidacion> liquidaciones = new ArrayList<>();
 	
@@ -48,13 +53,16 @@ public class Colaborador {
 	
 	}
 
-	public Colaborador(Integer id, String nombre, String apellido, String dni, Date nacimiento, Integer edad,
-			String direccion, Date fecha_ingreso, Boolean activo, Convenio convenio, Categoria categoria, List<Liquidacion> liquidaciones) {
+	
+	public Colaborador(Integer id, String nombre, String apellido, String dni, String cuit, Date nacimiento,
+			Integer edad, String direccion, Date fecha_ingreso, boolean activo, Convenio convenio, Categoria categoria,
+			ObraSocial obrasocial, List<Liquidacion> liquidaciones) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
+		this.cuit = cuit;
 		this.nacimiento = nacimiento;
 		this.edad = edad;
 		this.direccion = direccion;
@@ -62,10 +70,33 @@ public class Colaborador {
 		this.activo = activo;
 		this.convenio = convenio;
 		this.categoria = categoria;
+		this.obrasocial = obrasocial;
 		this.liquidaciones = liquidaciones;
 	}
-	
-	
+
+
+
+	public ObraSocial getObraSocial() {
+		return obrasocial;
+	}
+
+
+	public void setObraSocial(ObraSocial obrasocial) {
+		this.obrasocial = obrasocial;
+	}
+
+
+	public String getCuit() {
+		return cuit;
+	}
+
+	public void setCuit(String cuit) {
+		this.cuit = cuit;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 
 	public Date getFecha_ingreso() {
 		return fecha_ingreso;
