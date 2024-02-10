@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.sueldos.liquidacion.model.Colaborador;
 import com.sueldos.liquidacion.model.Liquidacion;
-import com.sueldos.liquidacion.model.LiquidacionComercio;
 import com.sueldos.liquidacion.repository.ColaboradorRepository;
 import com.sueldos.liquidacion.repository.LiquidacionRepository;
 
