@@ -3,6 +3,7 @@ package com.sueldos.liquidacion.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sueldos.liquidacion.model.ObraSocial;
 import com.sueldos.liquidacion.service.ObraSocialService;
 
@@ -34,10 +34,6 @@ public class ObraSocialController {
 		return obraSocialService.listar();
 	}
 	
-	@GetMapping("/{idObraSocial}")
-    public ObraSocial get(@PathVariable("idObraSocial") Integer idObraSocial){
-       return obraSocialService.buscar(idObraSocial);
-    }
    
 	@DeleteMapping("/{idObraSocial}")
 	void borrar(@PathVariable Integer idObraSocial){
@@ -48,6 +44,16 @@ public class ObraSocialController {
 	public void actualizar(@RequestBody ObraSocial obraSocial){
 		obraSocialService.actualizar(obraSocial);
 	 }
+	
+	@GetMapping("/{idObraSocial}")
+	public ResponseEntity<ObraSocial> get(@PathVariable("idObraSocial") Integer idObraSocial) {
+	    ObraSocial obraSocial = obraSocialService.buscar(idObraSocial);
+	    if (obraSocial != null) {
+	        return ResponseEntity.ok(obraSocial);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
 	
 
 }

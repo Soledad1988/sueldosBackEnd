@@ -1,11 +1,9 @@
 package com.sueldos.liquidacion.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,9 +21,10 @@ public class ObraSocial {
 	private String nombre;
 	private Integer codigo;
 	
-	@OneToMany(mappedBy = "obrasocial", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "obraSocial")
 	@JsonIgnore
-	private List<Colaborador> colaboradores = new ArrayList<>();
+	private List<Colaborador> colaboradores;
+
 	
 	public ObraSocial() {
 
@@ -36,6 +35,15 @@ public class ObraSocial {
 		this.idObraSocial = idObraSocial;
 		this.nombre = nombre;
 		this.codigo = codigo;
+		this.colaboradores = colaboradores;
+	}
+
+
+	public List<Colaborador> getColaboradores() {
+		return colaboradores;
+	}
+
+	public void setColaboradores(List<Colaborador> colaboradores) {
 		this.colaboradores = colaboradores;
 	}
 
@@ -63,13 +71,6 @@ public class ObraSocial {
 		this.codigo = codigo;
 	}
 
-	public List<Colaborador> getColaboradores() {
-		return colaboradores;
-	}
 
-	public void setColaboradores(List<Colaborador> colaboradores) {
-		this.colaboradores = colaboradores;
-	}
-	
 	
 }
