@@ -2,14 +2,17 @@ package com.sueldos.liquidacion.service;
 
 import java.util.List;
 
+import com.sueldos.liquidacion.model.Colaborador;
 import com.sueldos.liquidacion.model.Liquidacion;
 
 
 public interface ILiquidacionService {
 
-	public void crear(Liquidacion liquidacion);
-	public List<Liquidacion>listar();
-	public void borrar(Liquidacion idLiquidacion);
-    public Liquidacion buscar(Integer idLiquidacion);
-    public void actualizar(Liquidacion liquidacion);
+	void crear(Liquidacion liquidacion);
+    List<Liquidacion> listar();
+    void borrar(Liquidacion liquidacion);
+    Liquidacion buscar(Integer idLiquidacion);
+    void actualizar(Liquidacion liquidacion);
+    void calcularLiquidacion(Colaborador colaborador, Liquidacion liquidacion);
+
 }

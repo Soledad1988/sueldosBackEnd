@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sueldos.liquidacion.model.Colaborador;
 import com.sueldos.liquidacion.model.Liquidacion;
+import com.sueldos.liquidacion.service.ColaboradorService;
 import com.sueldos.liquidacion.service.LiquidacionService;
 
 
@@ -24,19 +26,47 @@ import com.sueldos.liquidacion.service.LiquidacionService;
 @RequestMapping("/liquidacion")
 public class LiquidacionController {
 
-	 @Autowired
+	 	@Autowired
 	    private LiquidacionService liquidacionService;
+	 	
+	 	@Autowired
+	    private ColaboradorService colaboradorService;
 
-	    @PostMapping
-	    public ResponseEntity<Liquidacion> crear(@RequestBody Liquidacion liquidacion) {
-	        liquidacionService.crear(liquidacion);
-	        return new ResponseEntity<>(liquidacion, HttpStatus.CREATED);
-	    }
+	 	@PostMapping
+	 	public ResponseEntity<Liquidacion> crear(@RequestBody Liquidacion liquidacion) {
+	 	    // Obtener el colaborador asociado a la liquidación
+	 	    Colaborador colaborador = colaboradorService.buscar(liquidacion.getColaborador().getId());
+	 	    if (colaborador == null) {
+	 	        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	 	    }
 
-	    @GetMapping
+	 	    // Calcular la liquidación para el colaborador
+	 	    colaborador.calcularLiquidacion(liquidacion);
+
+	 	    // Guardar la liquidación en la base de datos
+	 	    liquidacion.setColaborador(colaborador); // Asignar el colaborador a la liquidación
+	 	    liquidacionService.crear(liquidacion);
+
+	 	    return new ResponseEntity<>(liquidacion, HttpStatus.CREATED);
+	 	}
+	   
+	    /*@GetMapping
 	    public ResponseEntity<List<Liquidacion>> listar() {
 	        return new ResponseEntity<>(liquidacionService.listar(), HttpStatus.OK);
-	    }
+	    }*/
+	    
+	 	@GetMapping
+	 	public ResponseEntity<List<Liquidacion>> listarLiquidaciones() {
+	 	    List<Liquidacion> liquidaciones = liquidacionService.listar();
+
+	 	    // Calcular los valores de liquidación para cada liquidación
+	 	    for (Liquidacion liquidacion : liquidaciones) {
+	 	        liquidacion.calcularValores();
+	 	    }
+
+	 	    return new ResponseEntity<>(liquidaciones, HttpStatus.OK);
+	 	}
+
 
 	    // Ejemplo de método para actualizar
 	    @PutMapping("/{id}")
@@ -45,10 +75,27 @@ public class LiquidacionController {
 	        if (existente == null) {
 	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        }
-	        // Copiar detalles de 'liquidacion' a 'existente' aquí
+	        
+	        // Copiar los detalles de la liquidación proporcionada a la liquidación existente
+	        existente.setFecha(liquidacion.getFecha());
+	        existente.setAntiguedad(liquidacion.getAntiguedad());
+	        existente.setOtros(liquidacion.getOtros());
+	        
+	        // Recalcula el sueldo básico utilizando la categoría del colaborador asociado
+	        Colaborador colaborador = existente.getColaborador();
+	        if (colaborador != null && colaborador.getCategoria() != null) {
+	            double sueldoBasico = colaborador.getCategoria().getSueldoBasico();
+	           // existente.setSueldoBasico(sueldoBasico);
+	        } else {
+	            // Maneja el caso donde no se puede calcular el sueldo básico
+	            // Esto puede ser lanzando una excepción, asignando un valor por defecto, etc.
+	        }
+
 	        liquidacionService.actualizar(existente);
 	        return new ResponseEntity<>(existente, HttpStatus.OK);
 	    }
+
+
 
 	    // Ejemplo de método para buscar por ID
 	    @GetMapping("/{id}")
@@ -70,4 +117,6 @@ public class LiquidacionController {
 	        liquidacionService.borrar(liquidacion);
 	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	    }
+	    
+	    
 }
