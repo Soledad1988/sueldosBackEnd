@@ -3,6 +3,7 @@ package com.sueldos.liquidacion.service;
 import java.util.List;
 
 import com.sueldos.liquidacion.model.Colaborador;
+import com.sueldos.liquidacion.model.Liquidacion;
 
 public interface IColaboradorService {
 

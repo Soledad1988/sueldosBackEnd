@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -178,16 +179,18 @@ public class Colaborador {
 	}
 
 	//---------------------------------
-	public void addLiquidacion(Liquidacion liquidacion) {
+	 public void agregarLiquidacion(Liquidacion liquidacion) {
 	        liquidaciones.add(liquidacion);
 	        liquidacion.setColaborador(this);
 	    }
 
-	public void removeLiquidacion(Liquidacion liquidacion) {
+	    public void eliminarLiquidacion(Liquidacion liquidacion) {
 	        liquidaciones.remove(liquidacion);
 	        liquidacion.setColaborador(null);
 	    }
+
 	    
+	    //calculo ndividual
 	public void calcularLiquidacion(Liquidacion liquidacion) {
 	        // Calcular sueldoBruto
 	        double sueldoBasicoCategoria = categoria.getSueldoBasico();
