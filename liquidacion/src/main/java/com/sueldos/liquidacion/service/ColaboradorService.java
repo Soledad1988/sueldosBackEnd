@@ -1,6 +1,5 @@
 package com.sueldos.liquidacion.service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sueldos.liquidacion.model.Colaborador;
-import com.sueldos.liquidacion.model.Liquidacion;
 import com.sueldos.liquidacion.repository.ColaboradorRepository;
-import com.sueldos.liquidacion.repository.LiquidacionRepository;
 
 @Service
 public class ColaboradorService implements IColaboradorService{

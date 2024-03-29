@@ -43,10 +43,6 @@ public class Colaborador {
     @JoinColumn(name = "id_obra_social")
     private ObraSocial obraSocial;
 	
-	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonIgnore
-    private List<Liquidacion> liquidaciones = new ArrayList<>();
-	
 	
 	public Colaborador() {
 	
@@ -54,7 +50,7 @@ public class Colaborador {
 
 	public Colaborador(Integer id, String nombre, String apellido, String dni, String cuit, Date nacimiento,
 			Integer edad, String direccion, Date fecha_ingreso, boolean activo, Categoria categoria,
-			ObraSocial obraSocial, List<Liquidacion> liquidaciones) {
+			ObraSocial obraSocial) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -68,7 +64,6 @@ public class Colaborador {
 		this.activo = activo;
 		this.categoria = categoria;
 		this.obraSocial = obraSocial;
-		this.liquidaciones = liquidaciones;
 	}
 
 
@@ -170,16 +165,9 @@ public class Colaborador {
 	}
 
 
-	public List<Liquidacion> getLiquidaciones() {
-		return liquidaciones;
-	}
-
-	public void setLiquidaciones(List<Liquidacion> liquidaciones) {
-		this.liquidaciones = liquidaciones;
-	}
 
 	//---------------------------------
-	 public void agregarLiquidacion(Liquidacion liquidacion) {
+	 /*public void agregarLiquidacion(Liquidacion liquidacion) {
 	        liquidaciones.add(liquidacion);
 	        liquidacion.setColaborador(this);
 	    }
@@ -203,6 +191,6 @@ public class Colaborador {
 
 	        // Calcular sueldoNeto
 	        liquidacion.setSueldoNeto(liquidacion.getSueldoBruto() - (descuentoAntiguedad + descuentoLey + descuentoObraSocial));
-	    }
+	    }*/
 	
 }
