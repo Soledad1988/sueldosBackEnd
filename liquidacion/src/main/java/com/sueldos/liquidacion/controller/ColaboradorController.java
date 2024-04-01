@@ -4,7 +4,6 @@ package com.sueldos.liquidacion.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sueldos.liquidacion.model.Colaborador;
+import com.sueldos.liquidacion.model.Novedad;
 import com.sueldos.liquidacion.service.ColaboradorService;
 
 @CrossOrigin
@@ -60,6 +60,11 @@ public class ColaboradorController {
 	    }
 	    return ResponseEntity.ok(colaborador);
 	}
+	
+	@PostMapping("/{id}/novedad")
+    public void asignarNovedadAColaborador(@PathVariable Integer id, @RequestBody Novedad novedad) {
+        colaboradorService.asignarNovedad(id, novedad);
+    }
 	
 
 }
