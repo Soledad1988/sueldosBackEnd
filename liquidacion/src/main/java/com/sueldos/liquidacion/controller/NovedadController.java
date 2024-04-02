@@ -1,5 +1,6 @@
 package com.sueldos.liquidacion.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sueldos.liquidacion.model.Colaborador;
 import com.sueldos.liquidacion.model.Novedad;
+import com.sueldos.liquidacion.service.ColaboradorService;
 import com.sueldos.liquidacion.service.NovedadService;
 
 @CrossOrigin
@@ -22,6 +26,9 @@ public class NovedadController {
 	
 	@Autowired
 	private NovedadService novedadService;
+	
+	@Autowired
+    private ColaboradorService colaboradorService; 
 	
 	@PostMapping
 	public void crear(@RequestBody Novedad novedad) {
@@ -47,5 +54,25 @@ public class NovedadController {
 	public void actualizar(@RequestBody Novedad novedad){
 		novedadService.actualizar(novedad);
 	 }
+	
+	 @PostMapping("/{idColaborador}") // Modificamos para que acepte el ID del colaborador
+	    public void crear(@PathVariable("idColaborador") Integer idColaborador, @RequestBody Novedad novedad) {
+	        // Buscamos el colaborador por su ID
+	        Colaborador colaborador = colaboradorService.buscar(idColaborador);
+	        if (colaborador != null) {
+	            // Asignamos el colaborador a la novedad
+	            novedad.setColaborador(colaborador);
+	            // Guardamos la novedad
+	            novedadService.crear(novedad);
+	        } else {
+	            // Manejo si el colaborador no existe
+	            // Puedes lanzar una excepción, devolver un ResponseEntity con un mensaje de error, etc.
+	        }
+	    }
+	 
+	 @GetMapping("/periodo/{periodo}")
+	    public List<Novedad> listarPorPeriodo(@PathVariable("periodo") LocalDate periodo) {
+	        return novedadService.listarPorPeriodo(periodo);
+	    }
 
 }

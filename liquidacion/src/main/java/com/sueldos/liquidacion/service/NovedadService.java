@@ -1,5 +1,6 @@
 package com.sueldos.liquidacion.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ public class NovedadService implements INovedadService{
 	@Override
 	public void borrar(Integer idNovedad) {
 		novedadRepository.deleteById(idNovedad);
-		
 	}
 
 	@Override
@@ -41,5 +41,9 @@ public class NovedadService implements INovedadService{
 		novedadRepository.save(novedad);
 		
 	}
+	
+	 public List<Novedad> listarPorPeriodo(LocalDate periodo) {
+	        return novedadRepository.findByPeriodo(periodo);
+	    }
 
 }
