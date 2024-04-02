@@ -40,19 +40,18 @@ public class Colaborador {
 	@ManyToOne
     @JoinColumn(name = "id_obra_social")
     private ObraSocial obraSocial;
-	
-	@OneToMany(mappedBy = "colaborador", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private List<Novedad> novedades;
+
 	
 	
 	public Colaborador() {
 	
 	}
 
+
+
 	public Colaborador(Integer id, String nombre, String apellido, String dni, String cuit, Date nacimiento,
 			Integer edad, String direccion, Date fecha_ingreso, boolean activo, Categoria categoria,
-			ObraSocial obraSocial, List<Novedad> novedades) {
+			ObraSocial obraSocial) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -66,8 +65,8 @@ public class Colaborador {
 		this.activo = activo;
 		this.categoria = categoria;
 		this.obraSocial = obraSocial;
-		this.novedades = novedades;
 	}
+
 
 
 	public Integer getId() {
@@ -75,9 +74,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 
 
 	public String getNombre() {
@@ -85,9 +86,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 
 
 	public String getApellido() {
@@ -95,9 +98,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+
 
 
 	public String getDni() {
@@ -105,9 +110,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
+
 
 
 	public String getCuit() {
@@ -115,9 +122,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setCuit(String cuit) {
 		this.cuit = cuit;
 	}
+
 
 
 	public Date getNacimiento() {
@@ -125,9 +134,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setNacimiento(Date nacimiento) {
 		this.nacimiento = nacimiento;
 	}
+
 
 
 	public Integer getEdad() {
@@ -135,9 +146,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
+
 
 
 	public String getDireccion() {
@@ -145,9 +158,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
 
 
 	public Date getFecha_ingreso() {
@@ -155,9 +170,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setFecha_ingreso(Date fecha_ingreso) {
 		this.fecha_ingreso = fecha_ingreso;
 	}
+
 
 
 	public boolean isActivo() {
@@ -165,9 +182,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+
 
 
 	public Categoria getCategoria() {
@@ -175,9 +194,11 @@ public class Colaborador {
 	}
 
 
+
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
 
 
 	public ObraSocial getObraSocial() {
@@ -185,47 +206,10 @@ public class Colaborador {
 	}
 
 
+
 	public void setObraSocial(ObraSocial obraSocial) {
 		this.obraSocial = obraSocial;
 	}
-
-
-	public List<Novedad> getNovedades() {
-		return novedades;
-	}
-
-
-	public void setNovedades(List<Novedad> novedades) {
-		this.novedades = novedades;
-	}	
-
-
-
-	//---------------------------------
-	 /*public void agregarLiquidacion(Liquidacion liquidacion) {
-	        liquidaciones.add(liquidacion);
-	        liquidacion.setColaborador(this);
-	    }
-
-	    public void eliminarLiquidacion(Liquidacion liquidacion) {
-	        liquidaciones.remove(liquidacion);
-	        liquidacion.setColaborador(null);
-	    }
-
-	    
-	    //calculo ndividual
-	public void calcularLiquidacion(Liquidacion liquidacion) {
-	        // Calcular sueldoBruto
-	        double sueldoBasicoCategoria = categoria.getSueldoBasico();
-	        liquidacion.setSueldoBruto(sueldoBasicoCategoria + liquidacion.calcularAntiguedad() + liquidacion.getOtros());
-
-	        // Calcular descuentos
-	        double descuentoAntiguedad = liquidacion.getSueldoBruto() * Liquidacion.getDescuentoAntiguedad();
-	        double descuentoLey = liquidacion.getSueldoBruto() * Liquidacion.getDescuentoLey();
-	        double descuentoObraSocial = liquidacion.getSueldoBruto() * Liquidacion.getDescuentoObraSocial();
-
-	        // Calcular sueldoNeto
-	        liquidacion.setSueldoNeto(liquidacion.getSueldoBruto() - (descuentoAntiguedad + descuentoLey + descuentoObraSocial));
-	    }*/
 	
 }
+	

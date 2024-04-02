@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sueldos.liquidacion.model.Colaborador;
-import com.sueldos.liquidacion.model.Novedad;
 import com.sueldos.liquidacion.service.ColaboradorService;
 
 @CrossOrigin
@@ -26,6 +25,7 @@ public class ColaboradorController {
 	
 	@Autowired
 	private ColaboradorService colaboradorService;
+
 	
 	@PostMapping
 	public void crear(@RequestBody Colaborador colaborador) {
@@ -60,11 +60,6 @@ public class ColaboradorController {
 	    }
 	    return ResponseEntity.ok(colaborador);
 	}
-	
-	@PostMapping("/{id}/novedad")
-    public void asignarNovedadAColaborador(@PathVariable Integer id, @RequestBody Novedad novedad) {
-        colaboradorService.asignarNovedad(id, novedad);
-    }
 	
 
 }
