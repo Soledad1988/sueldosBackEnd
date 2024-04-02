@@ -1,18 +1,10 @@
 package com.sueldos.liquidacion.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity(name="Convenio")
@@ -25,13 +17,14 @@ public class Convenio {
 	private String numero;
 	private String nombre;
 	
+	/*
 	@OneToMany(mappedBy = "convenio", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private List<Categoria> categorias = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "convenio", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
-	private List<Colaborador> colaboradores = new ArrayList<>();
+	private List<Colaborador> colaboradores = new ArrayList<>();*/
 	
 	
 	
@@ -40,23 +33,17 @@ public class Convenio {
 	}
 
 
-
-	public Convenio(Integer idConvenio, String numero, String nombre, List<Categoria> categorias,
-			List<Colaborador> colaboradores) {
+	public Convenio(Integer idConvenio, String numero, String nombre) {
 		super();
 		this.idConvenio = idConvenio;
 		this.numero = numero;
 		this.nombre = nombre;
-		this.categorias = categorias;
-		this.colaboradores = colaboradores;
 	}
-
 
 
 	public Integer getIdConvenio() {
 		return idConvenio;
 	}
-
 
 
 	public void setIdConvenio(Integer idConvenio) {
@@ -87,26 +74,6 @@ public class Convenio {
 		this.nombre = nombre;
 	}
 
-
-
-	public List<Categoria> getCategorias() {
-		return categorias;
-	}
-
-
-	public void setCategorias(List<Categoria> categorias) {
-		this.categorias = categorias;
-	}
-
-
-	public List<Colaborador> getColaboradores() {
-		return colaboradores;
-	}
-
-
-	public void setColaboradores(List<Colaborador> colaboradores) {
-		this.colaboradores = colaboradores;
-	}
 
 	
 	

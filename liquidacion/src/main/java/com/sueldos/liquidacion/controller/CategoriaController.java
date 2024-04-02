@@ -3,7 +3,6 @@ package com.sueldos.liquidacion.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,5 +48,11 @@ public class CategoriaController {
 	public void actualizar(@RequestBody Categoria categoria){
 		categoriaService.actualizar(categoria);
 	 }
+	
+	//llama al id del convenio segun la categoria seleccionada
+	@GetMapping("/porConvenio/{idConvenio}")
+    public List<Categoria> getCategoriasPorConvenio(@PathVariable Integer idConvenio) {
+        return categoriaService.getCategoriasPorConvenio(idConvenio);
+    }
 
 }

@@ -1,6 +1,5 @@
 package com.sueldos.liquidacion.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,19 +25,22 @@ public class Colaborador {
 	private String nombre;
 	private String apellido;
 	private String dni;
+	private String cuit;
 	private Date nacimiento;
 	private Integer edad;
 	private String direccion;
-	private Boolean activo = true;
+	private Date fecha_ingreso;
+	private boolean activo;
+	
 	
 	@ManyToOne
-	@JoinColumn(name = "id_convenio", nullable = false)
-	private Convenio convenio;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_catgoria", nullable = false)
+	@JoinColumn(name = "id_categoria", nullable = false)
 	private Categoria categoria;
 	
+	@ManyToOne
+    @JoinColumn(name = "id_obra_social")
+    private ObraSocial obraSocial;
+
 	
 	
 	public Colaborador() {
@@ -47,19 +49,22 @@ public class Colaborador {
 
 
 
-	public Colaborador(Integer id, String nombre, String apellido, String dni, Date nacimiento, Integer edad,
-			String direccion, Boolean activo, Convenio convenio, Categoria categoria) {
+	public Colaborador(Integer id, String nombre, String apellido, String dni, String cuit, Date nacimiento,
+			Integer edad, String direccion, Date fecha_ingreso, boolean activo, Categoria categoria,
+			ObraSocial obraSocial) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
+		this.cuit = cuit;
 		this.nacimiento = nacimiento;
 		this.edad = edad;
 		this.direccion = direccion;
+		this.fecha_ingreso = fecha_ingreso;
 		this.activo = activo;
-		this.convenio = convenio;
 		this.categoria = categoria;
+		this.obraSocial = obraSocial;
 	}
 
 
@@ -112,6 +117,18 @@ public class Colaborador {
 
 
 
+	public String getCuit() {
+		return cuit;
+	}
+
+
+
+	public void setCuit(String cuit) {
+		this.cuit = cuit;
+	}
+
+
+
 	public Date getNacimiento() {
 		return nacimiento;
 	}
@@ -148,26 +165,26 @@ public class Colaborador {
 
 
 
-	public Boolean getActivo() {
+	public Date getFecha_ingreso() {
+		return fecha_ingreso;
+	}
+
+
+
+	public void setFecha_ingreso(Date fecha_ingreso) {
+		this.fecha_ingreso = fecha_ingreso;
+	}
+
+
+
+	public boolean isActivo() {
 		return activo;
 	}
 
 
 
-	public void setActivo(Boolean activo) {
+	public void setActivo(boolean activo) {
 		this.activo = activo;
-	}
-
-
-
-	public Convenio getConvenio() {
-		return convenio;
-	}
-
-
-
-	public void setConvenio(Convenio convenio) {
-		this.convenio = convenio;
 	}
 
 
@@ -182,8 +199,17 @@ public class Colaborador {
 		this.categoria = categoria;
 	}
 
-	
 
-	
+
+	public ObraSocial getObraSocial() {
+		return obraSocial;
+	}
+
+
+
+	public void setObraSocial(ObraSocial obraSocial) {
+		this.obraSocial = obraSocial;
+	}
 	
 }
+	

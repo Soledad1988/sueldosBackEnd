@@ -11,4 +11,6 @@ public interface ICategoriaService {
 	    public void borrar(Integer idCategoria);
 	    public Categoria buscar(Integer idCategoria);
 	    public void actualizar(Categoria categoria);
+	    //llama al al categoria segun el id del convenio
+	    public List<Categoria> getCategoriasPorConvenio(Integer idConvenio);
 }

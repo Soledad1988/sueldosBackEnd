@@ -39,4 +39,9 @@ public class CategoriaService implements ICategoriaService{
 		categoriaRepository.save(categoria);	
 	}
 
+	@Override
+	  public List<Categoria> getCategoriasPorConvenio(Integer idConvenio) {
+        return categoriaRepository.findByConvenioIdConvenio(idConvenio);
+    }
+
 }

@@ -11,4 +11,6 @@ public interface IColaboradorService {
 	public void borrar(Integer id);
     public Colaborador buscar(Integer id);
     public void actualizar(Colaborador colaborador);
+    public Colaborador cambiarEstadoActivoColaborador(Integer id, Boolean nuevoEstado);
+
 }

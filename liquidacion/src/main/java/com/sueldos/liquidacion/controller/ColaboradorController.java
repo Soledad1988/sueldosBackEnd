@@ -4,6 +4,8 @@ package com.sueldos.liquidacion.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sueldos.liquidacion.model.Colaborador;
 import com.sueldos.liquidacion.service.ColaboradorService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/colaborador")
 public class ColaboradorController {
 	
 	@Autowired
 	private ColaboradorService colaboradorService;
+
 	
 	@PostMapping
 	public void crear(@RequestBody Colaborador colaborador) {
@@ -47,5 +51,15 @@ public class ColaboradorController {
 	public void actualizar(@RequestBody Colaborador colaborador){
 		colaboradorService.actualizar(colaborador);
 	 }
+	
+	@PutMapping("/cambiarEstado/{id}")
+	public ResponseEntity<?> cambiarEstadoActivoColaborador(@PathVariable Integer id, @RequestBody Boolean nuevoEstado) {
+	    Colaborador colaborador = colaboradorService.cambiarEstadoActivoColaborador(id, nuevoEstado);
+	    if (colaborador == null) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    return ResponseEntity.ok(colaborador);
+	}
+	
 
 }

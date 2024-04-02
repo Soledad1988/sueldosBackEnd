@@ -12,4 +12,6 @@ public class PruebaController {
 	public String conexion() {
 		return "se logra conexión";
 	}
+	
+
 }
