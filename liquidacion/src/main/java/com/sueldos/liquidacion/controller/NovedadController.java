@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sueldos.liquidacion.model.Colaborador;
@@ -70,9 +72,14 @@ public class NovedadController {
 	        }
 	    }
 	 
-	 @GetMapping("/periodo/{periodo}")
-	    public List<Novedad> listarPorPeriodo(@PathVariable("periodo") LocalDate periodo) {
-	        return novedadService.listarPorPeriodo(periodo);
-	    }
-
+	 
+	 @GetMapping("/month/{month}/year/{year}")
+	 public List<Novedad> listarPorMesYAnio(@PathVariable("month") Integer month, @PathVariable("year") Integer year) {
+	     // Crear las fechas de inicio y fin del mes y año proporcionados
+	     LocalDate startDate = LocalDate.of(year, month, 1);
+	     LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+	     
+	     // Llamar al servicio para obtener las novedades filtradas por el rango de fechas
+	     return novedadService.listarPorPeriodo(startDate, endDate);
+	 }
 }
