@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
@@ -23,7 +24,6 @@ import java.util.List;
 
 import com.sueldos.liquidacion.model.Colaborador;
 import com.sueldos.liquidacion.model.Novedad;
-import com.sueldos.liquidacion.service.ColaboradorService;
 import com.sueldos.liquidacion.service.NovedadService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,9 +32,6 @@ import java.time.format.DateTimeFormatter;
 @RestController
 @RequestMapping("/")
 public class ArchivosNovedadController {
- 
-	 @Autowired
-	    private ColaboradorService colaboradorService;
 	 
 	 @Autowired
 	    private NovedadService novedadService;
@@ -89,8 +86,14 @@ public class ArchivosNovedadController {
 	     }
 	 }
 	 
-	 @GetMapping("novedad/pdf")
-	 public ResponseEntity<byte[]> exportToPDF(@RequestParam int month, @RequestParam int year) throws IOException {
+	 
+	 @GetMapping("/novedad/pdf")
+	 public ResponseEntity<byte[]> exportToPDF(@RequestParam int month, @RequestParam int year) {
+	     // Verificar si los parámetros son válidos
+	     if (month < 1 || month > 12 || year < 0) {
+	         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+	     }
+
 	     LocalDate startDate = LocalDate.of(year, month, 1);
 	     LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth()); // Último día del mes
 	     List<Novedad> novedades = novedadService.listarPorPeriodo(startDate, endDate);
@@ -103,9 +106,22 @@ public class ArchivosNovedadController {
 	         document.open();
 
 	         document.add(new Paragraph("Reporte de Novedades"));
+	         
+	      // Crear una tabla para los datos de las novedades
+	         PdfPTable table = new PdfPTable(5); // 5 columnas
+	         table.setWidthPercentage(100);
+
+	         // Agregar encabezados de columna
+	         table.addCell("ID de Novedad");
+	         table.addCell("Nombre del Colaborador");
+	         table.addCell("CUIT del Colaborador");
+	         table.addCell("Vacaciones");
+	         table.addCell("Feriado");
+
+	         // Agregar datos de las novedades a la tabla
 
 	         for (Novedad novedad : novedades) {
-	             Colaborador colaborador = novedad.getColaborador();
+	        	 Colaborador colaborador = novedad.getColaborador();
 	             document.add(new Paragraph("ID de Novedad: " + novedad.getIdNovedad()));
 	             document.add(new Paragraph("Nombre del Colaborador: " + colaborador.getNombre() + " " + colaborador.getApellido()));
 	             document.add(new Paragraph("CUIT del Colaborador: " + colaborador.getCuit()));
@@ -128,5 +144,6 @@ public class ArchivosNovedadController {
 	         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	     }
 	 }
+
 
 }
