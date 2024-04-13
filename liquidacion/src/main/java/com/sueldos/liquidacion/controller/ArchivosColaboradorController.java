@@ -26,11 +26,12 @@ import java.text.SimpleDateFormat;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/generar/")
-public class ArchivosController {
+@RequestMapping("/")
+public class ArchivosColaboradorController {
  
 	 @Autowired
 	    private ColaboradorService colaboradorService;
+	
 
 	    @GetMapping("/excel/{id}")
 	    public ResponseEntity<byte[]> generarExcelColaborador(@PathVariable Integer id) {
@@ -73,7 +74,7 @@ public class ArchivosController {
 	        }
 	    }
 	    
-	    @GetMapping("/excel")
+	    @GetMapping("generar/excel")
 	    public ResponseEntity<byte[]> generarExcelTodosColaboradores() {
 	        List<Colaborador> colaboradores = colaboradorService.listar();
 	        if (colaboradores.isEmpty()) {
@@ -130,7 +131,7 @@ public class ArchivosController {
 	        }
 	    }
 	    
-	    @GetMapping("/pdf")
+	    @GetMapping("generar/pdf")
 	    public ResponseEntity<byte[]> generarPdfTodosColaboradores() throws IOException {
 	        List<Colaborador> colaboradores = colaboradorService.listar();
 	        if (colaboradores.isEmpty()) {
@@ -171,5 +172,6 @@ public class ArchivosController {
 	            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	        }
 	    }
+	    
 
 }

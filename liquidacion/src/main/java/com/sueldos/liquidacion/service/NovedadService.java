@@ -42,8 +42,8 @@ public class NovedadService implements INovedadService{
 		
 	}
 	
-	 public List<Novedad> listarPorPeriodo(LocalDate periodo) {
-	        return novedadRepository.findByPeriodo(periodo);
-	    }
+	public List<Novedad> listarPorPeriodo(LocalDate startDate, LocalDate endDate) {
+	    return novedadRepository.findByPeriodoBetween(startDate, endDate);
+	}
 
 }

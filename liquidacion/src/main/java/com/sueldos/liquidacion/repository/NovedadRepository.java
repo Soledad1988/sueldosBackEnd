@@ -9,5 +9,5 @@ import com.sueldos.liquidacion.model.Novedad;
 
 
 public interface NovedadRepository extends JpaRepository<Novedad, Integer>{
-	 List<Novedad> findByPeriodo(LocalDate periodo);
+	 List<Novedad> findByPeriodoBetween(LocalDate startDate, LocalDate endDate);
 }
