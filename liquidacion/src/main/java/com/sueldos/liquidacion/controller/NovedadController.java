@@ -2,6 +2,7 @@ package com.sueldos.liquidacion.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,9 +38,23 @@ public class NovedadController {
 		novedadService.crear(novedad);;
 	}
 	
+	/*
 	@GetMapping
 	public List<Novedad>listar(){
 		return novedadService.listar();
+	}*/
+	
+	@GetMapping
+	public List<Novedad> listar() {
+	    // Obtener la lista de todas las ausencias
+	    List<Novedad> ausencias = novedadService.listar();
+	    
+	    // Filtrar las ausencias para obtener solo las de colaboradores activos
+	    List<Novedad> ausenciasColaboradoresActivos = ausencias.stream()
+	            .filter(novedad -> novedad.getColaborador().isActivo()) // Filtrar por colaboradores activos
+	            .collect(Collectors.toList());
+	    
+	    return ausenciasColaboradoresActivos;
 	}
 	
 	@GetMapping("/{idNovedad}")
