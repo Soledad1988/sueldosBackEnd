@@ -61,5 +61,11 @@ public class ColaboradorController {
 	    return ResponseEntity.ok(colaborador);
 	}
 	
+	@GetMapping("/estado/{activo}")
+    public ResponseEntity<List<Colaborador>> listarPorEstado(@PathVariable boolean activo) {
+        List<Colaborador> colaboradores = colaboradorService.listarPorEstado(activo);
+        return ResponseEntity.ok(colaboradores);
+    }
+	
 
 }

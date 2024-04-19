@@ -50,6 +50,9 @@ public class ColaboradorService implements IColaboradorService{
 	    return null; // Retorna null si el colaborador no se encuentra
 	}
 	
-
+	  @Override
+	    public List<Colaborador> listarPorEstado(boolean activo) {
+	        return colaboradorRepository.findByActivo(activo);
+	    }
 
 }
