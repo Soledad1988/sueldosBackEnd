@@ -50,7 +50,7 @@ public class ArchivosNovedadController {
 
 	         // Crear la fila de encabezado
 	         Row headerRow = sheet.createRow(0);
-	         String[] headers = {"ID", "Colaborador Nombre", "Colaborador CUIT", "Periodo", "Vacaciones", "Feriado", "Inasistencia Justificada", "Inasistencia Injustificada"};
+	         String[] headers = {"Legajo", "Nombre y Apellido", "CUIT", "Periodo", "Vacaciones", "Feriado", "Inasistencia Justificada", "Inasistencia Injustificada"};
 	         for (int i = 0; i < headers.length; i++) {
 	             Cell cell = headerRow.createCell(i);
 	             cell.setCellValue(headers[i]);
@@ -115,7 +115,7 @@ public class ArchivosNovedadController {
 	         table.setWidthPercentage(100);
 
 	         // Agregar encabezados de columna
-	         table.addCell("ID de Novedad");
+	         table.addCell("Legajo");
 	         table.addCell("Apellido y Nombre");
 	         table.addCell("CUIT");
 	         table.addCell("Vacaciones");
