@@ -13,4 +13,6 @@ public interface ICategoriaService {
 	    public void actualizar(Categoria categoria);
 	    //llama al al categoria segun el id del convenio
 	    public List<Categoria> getCategoriasPorConvenio(Integer idConvenio);
+	    // Agrega el método para obtener detalles de la categoría
+	    Categoria getCategoriaDetalles(Integer idCategoria);
 }

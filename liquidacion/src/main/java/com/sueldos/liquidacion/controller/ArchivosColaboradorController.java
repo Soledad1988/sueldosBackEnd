@@ -12,12 +12,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import com.sueldos.liquidacion.model.Colaborador;
 import com.sueldos.liquidacion.service.ColaboradorService;
@@ -131,6 +138,7 @@ public class ArchivosColaboradorController {
 	        }
 	    }
 	    
+	    
 	    @GetMapping("generar/pdf")
 	    public ResponseEntity<byte[]> generarPdfTodosColaboradores() throws IOException {
 	        List<Colaborador> colaboradores = colaboradorService.listar();
@@ -140,22 +148,48 @@ public class ArchivosColaboradorController {
 
 	        try {
 	            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-	            Document document = new Document();
+	            
+	            Document document = new Document(PageSize.A4.rotate());
 	            PdfWriter.getInstance(document, outputStream);
 	            document.open();
 
+	            document.add(new Paragraph("Reporte de Colaboradores - "));
+		        document.add(new Paragraph("\n"));
+		        
+		     // Crear una tabla para los datos de las novedades
+		         PdfPTable table = new PdfPTable(7); // 7 columnas
+		         table.setWidthPercentage(100);
+
+		         // Agregar encabezados de columna
+		         table.addCell("Legajo");
+		         table.addCell("Apellido y Nombre");
+		         table.addCell("CUIT");
+		         table.addCell("Fecha Ingreso");
+		         table.addCell("Convenio");
+		         table.addCell("Categoria");
+		         table.addCell("Obra Social");
+		         
 	            for (Colaborador colaborador : colaboradores) {
-	                document.add(new Paragraph("ID: " + colaborador.getId()));
-	                document.add(new Paragraph("Nombre: " + colaborador.getNombre()));
-	                document.add(new Paragraph("Apellido: " + colaborador.getApellido()));
-	                document.add(new Paragraph("CUIT: " + colaborador.getApellido()));
-	                document.add(new Paragraph("Fecha de Ingreso: " + colaborador.getFecha_ingreso()));
-	                document.add(new Paragraph("Convenio: " + colaborador.getCategoria().getConvenio().getNombre()));
-	                document.add(new Paragraph("Categoria: " + colaborador.getCategoria().getNombre()));
-	                document.add(new Paragraph("Obra Social: " + colaborador.getObraSocial().getNombre()));
-	                // Agrega más líneas según los datos que quieras incluir en el PDF
-	                document.add(new Paragraph("\n"));
+	            	table.addCell(String.valueOf(colaborador.getId()));
+		            table.addCell(colaborador.getApellido() + " " + colaborador.getNombre());
+		            table.addCell(colaborador.getCuit());
+		            
+		            // Convertir Date a LocalDate
+		            Date fechaIngresoDate = colaborador.getFecha_ingreso();
+		            LocalDate fechaIngresoLocalDate = fechaIngresoDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		            
+		            // Formatear la fecha de ingreso
+		            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		            String fechaIngresoFormateada = fechaIngresoLocalDate.format(formatter);
+
+		            table.addCell(fechaIngresoFormateada);
+		            
+		            table.addCell(colaborador.getCategoria().getConvenio().getNombre());
+		            table.addCell(colaborador.getCategoria().getNombre());
+		            table.addCell(colaborador.getObraSocial().getNombre());
 	            }
+	            
+	            document.add(table); // Agregar la tabla al documento
 
 	            document.close();
 

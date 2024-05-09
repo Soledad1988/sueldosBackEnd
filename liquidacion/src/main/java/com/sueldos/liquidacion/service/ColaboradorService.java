@@ -40,7 +40,7 @@ public class ColaboradorService implements IColaboradorService{
 	}
 	
 	//desactivar colaborador 
-	public Colaborador cambiarEstadoActivoColaborador(Integer id, Boolean nuevoEstado) {
+	/*public Colaborador cambiarEstadoActivoColaborador(Integer id, Boolean nuevoEstado) {
 	    Optional<Colaborador> colaboradorOptional = colaboradorRepository.findById(id);
 	    if (colaboradorOptional.isPresent()) {
 	        Colaborador colaborador = colaboradorOptional.get();
@@ -48,8 +48,26 @@ public class ColaboradorService implements IColaboradorService{
 	        return colaboradorRepository.save(colaborador); // Retorna el colaborador actualizado
 	    }
 	    return null; // Retorna null si el colaborador no se encuentra
-	}
+	}*/
 	
-
+	@Override
+    public Colaborador cambiarEstadoActivoColaborador(Integer id, Boolean nuevoEstado) {
+        Optional<Colaborador> colaboradorOptional = colaboradorRepository.findById(id);
+        if (colaboradorOptional.isPresent()) {
+            Colaborador colaborador = colaboradorOptional.get();
+            colaborador.setActivo(nuevoEstado);
+            // Delegar la lógica de persistencia al repositorio
+            return colaboradorRepository.save(colaborador);
+        }
+        return null; // Retorna null si el colaborador no se encuentra
+    }
+	
+	
+	  @Override
+	    public List<Colaborador> listarPorEstado(boolean activo) {
+	        return colaboradorRepository.findByActivo(activo);
+	    }
+	  
+	  
 
 }

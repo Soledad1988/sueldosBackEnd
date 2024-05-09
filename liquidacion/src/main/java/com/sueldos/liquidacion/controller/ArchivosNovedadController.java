@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -49,7 +50,7 @@ public class ArchivosNovedadController {
 
 	         // Crear la fila de encabezado
 	         Row headerRow = sheet.createRow(0);
-	         String[] headers = {"ID", "Colaborador Nombre", "Colaborador CUIT", "Periodo", "Vacaciones", "Feriado", "Inasistencia Justificada", "Inasistencia Injustificada"};
+	         String[] headers = {"Legajo", "Nombre y Apellido", "CUIT", "Periodo", "Vacaciones", "Feriado", "Inasistencia Justificada", "Inasistencia Injustificada"};
 	         for (int i = 0; i < headers.length; i++) {
 	             Cell cell = headerRow.createCell(i);
 	             cell.setCellValue(headers[i]);
@@ -99,39 +100,43 @@ public class ArchivosNovedadController {
 	     List<Novedad> novedades = novedadService.listarPorPeriodo(startDate, endDate);
 
 	     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-	     Document document = new Document();
+	     Document document = new Document(PageSize.A4.rotate()); // Cambiar orientación a horizontal
 
 	     try {
 	         PdfWriter.getInstance(document, outputStream);
 	         document.open();
 
-	         document.add(new Paragraph("Reporte de Novedades"));
+	         document.add(new Paragraph("Reporte de Novedades - " + startDate.format(DateTimeFormatter.ofPattern("MM/yyyy"))));
+	         document.add(new Paragraph("\n"));
+	         // document.add(new Paragraph("Reporte de Novedades - " + startDate.format(DateTimeFormatter.ofPattern("MM/yyyy")) + " - " + endDate.format(DateTimeFormatter.ofPattern("MM/yyyy"))));
 	         
 	      // Crear una tabla para los datos de las novedades
-	         PdfPTable table = new PdfPTable(5); // 5 columnas
+	         PdfPTable table = new PdfPTable(7); // 5 columnas
 	         table.setWidthPercentage(100);
 
 	         // Agregar encabezados de columna
-	         table.addCell("ID de Novedad");
-	         table.addCell("Nombre del Colaborador");
-	         table.addCell("CUIT del Colaborador");
+	         table.addCell("Legajo");
+	         table.addCell("Apellido y Nombre");
+	         table.addCell("CUIT");
 	         table.addCell("Vacaciones");
 	         table.addCell("Feriado");
+	         table.addCell("Inasistencias Justificadas");
+	         table.addCell("Inasistencias Injustificadas");
 
 	         // Agregar datos de las novedades a la tabla
 
 	         for (Novedad novedad : novedades) {
 	        	 Colaborador colaborador = novedad.getColaborador();
-	             document.add(new Paragraph("ID de Novedad: " + novedad.getIdNovedad()));
-	             document.add(new Paragraph("Nombre del Colaborador: " + colaborador.getNombre() + " " + colaborador.getApellido()));
-	             document.add(new Paragraph("CUIT del Colaborador: " + colaborador.getCuit()));
-	             document.add(new Paragraph("Periodo: " + novedad.getPeriodo().format(DateTimeFormatter.ofPattern("MM/yyyy"))));
-	             document.add(new Paragraph("Vacaciones: " + novedad.getVacaciones()));
-	             document.add(new Paragraph("Feriado: " + novedad.getFeriado()));
-	             document.add(new Paragraph("Inasistencia Justificada: " + novedad.getInasistenciaJustificada()));
-	             document.add(new Paragraph("Inasistencia Injustificada: " + novedad.getInasistenciaInjustificada()));
-	             document.add(new Paragraph("\n"));
+	        	 table.addCell(String.valueOf(novedad.getIdNovedad()));
+	             table.addCell(colaborador.getApellido() + " " + colaborador.getNombre());
+	             table.addCell(colaborador.getCuit());
+	             table.addCell(String.valueOf(novedad.getVacaciones())); // Convertir a String
+	             table.addCell(String.valueOf(novedad.getFeriado()));
+	             table.addCell(String.valueOf(novedad.getInasistenciaJustificada()));
+	             table.addCell(String.valueOf(novedad.getInasistenciaInjustificada()));
 	         }
+
+	         document.add(table); // Agregar la tabla al documento
 
 	         document.close();
 

@@ -54,5 +54,10 @@ public class CategoriaController {
     public List<Categoria> getCategoriasPorConvenio(@PathVariable Integer idConvenio) {
         return categoriaService.getCategoriasPorConvenio(idConvenio);
     }
+	
+	@GetMapping("/{id}/detalles")
+	public Categoria getCategoriaDetalles(@PathVariable("id") Integer id){
+	   return categoriaService.getCategoriaDetalles(id);
+	}
 
 }

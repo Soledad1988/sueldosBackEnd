@@ -43,5 +43,12 @@ public class CategoriaService implements ICategoriaService{
 	  public List<Categoria> getCategoriasPorConvenio(Integer idConvenio) {
         return categoriaRepository.findByConvenioIdConvenio(idConvenio);
     }
+	
+
+    // Método para obtener los detalles completos de una categoría, incluido el convenio asociado
+    @Override
+    public Categoria getCategoriaDetalles(Integer idCategoria) {
+        return categoriaRepository.findCategoriaWithDetails(idCategoria);
+    }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sueldos.liquidacion.model.Colaborador;
@@ -61,5 +62,20 @@ public class ColaboradorController {
 	    return ResponseEntity.ok(colaborador);
 	}
 	
+	
+	@GetMapping("/estado")
+	public ResponseEntity<List<Colaborador>> listarPorEstado(@RequestParam(required = false) Boolean activo) {
+	    List<Colaborador> colaboradores;
+	    if (activo == null || activo == false) {
+	        colaboradores = colaboradorService.listar(); // Obtener todos los colaboradores si activo es null o false
+	    } else {
+	        colaboradores = colaboradorService.listarPorEstado(activo); // Filtrar colaboradores por estado de activación
+	    }
+	    return ResponseEntity.ok(colaboradores);
+	}
+
+
+
+
 
 }
